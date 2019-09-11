@@ -6,87 +6,99 @@
 
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_margin="8dp"
+    android:background="#643C0B"
     android:orientation="vertical">
 
     <LinearLayout
-        android:layout_width="383dp"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="8dp"
+        android:background="#643C0B"
+        android:orientation="vertical">
 
         <LinearLayout
-            android:layout_width="301dp"
+            android:layout_width="383dp"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
-
-            <TextView
-                android:id="@+id/textview3"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Pilih Jenis Pengeluaran" />
+            android:orientation="horizontal">
 
             <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="horizontal">
+                android:layout_width="301dp"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
 
-                <Spinner
-                    android:id="@+id/spnJenis1"
-                    android:layout_width="167dp"
+                <TextView
+                    android:id="@+id/textview3"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:entries="@array/transaksi_arrays"
-                    android:gravity="center"
-                    android:prompt="@string/country_prompt"
-                    android:spinnerMode="dialog" />
+                    android:text="Pilih Jenis Pengeluaran"
+                    android:textColor="#DBDBDB" />
 
-                <Button
-                    android:id="@+id/btnPilih"
-                    android:layout_width="66dp"
+                <LinearLayout
+                    android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_gravity="right"
-                    android:foregroundGravity="right"
-                    android:gravity="center"
-                    android:text="Pilih" />
+                    android:orientation="horizontal">
 
-                <Button
-                    android:id="@+id/btnReset"
-                    android:layout_width="wrap_content"
+                    <Spinner
+                        android:id="@+id/spnJenis1"
+                        android:layout_width="167dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:entries="@array/transaksi_arrays"
+                        android:gravity="center"
+                        android:prompt="@string/country_prompt"
+                        android:spinnerMode="dialog" />
+
+                    <Button
+                        android:id="@+id/btnPilih"
+                        style="@style/Button.Accent.Borderless.WhiteText"
+                        android:layout_width="66dp"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="right"
+                        android:foregroundGravity="right"
+                        android:gravity="center"
+                        android:text="Pilih" />
+
+                    <Button
+                        android:id="@+id/btnReset"
+                        style="@style/Button.Accent.Borderless.WhiteText"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Reset" />
+
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/txtSaldo"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="Reset" />
+                    android:text="Total Pengeluaran"
+                    android:textColor="#DBDBDB" />
 
             </LinearLayout>
 
-            <TextView
-                android:id="@+id/txtSaldo"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Total Pengeluaran" />
-
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/btnAdd"
+                android:layout_width="54dp"
+                android:layout_height="58dp"
+                android:layout_gravity="center|right"
+                android:layout_margin="16dp"
+                android:backgroundTint="#FF6D00"
+                android:src="@drawable/ic_create" />
         </LinearLayout>
 
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/btnAdd"
-            android:layout_width="54dp"
-            android:layout_height="58dp"
-            android:layout_gravity="center|right"
-            android:layout_margin="16dp"
-            android:backgroundTint="#3F51B5"
-            android:src="@drawable/ic_create" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        tools:context=".TransaksiList">
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rvTrans"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            tools:context=".TransaksiList">
 
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rvTrans"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+
+        </LinearLayout>
     </LinearLayout>
 
     "

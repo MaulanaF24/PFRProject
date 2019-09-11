@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:drawable="@color/colorPrimary" />
+
+    <item>
+        <bitmap android:src="@drawable/logo_catatan_keuangan"
+            android:gravity="center" />
+
+        <!--Jangan salah masukin nama logonya-->
+    </item>
+
+</selector>
