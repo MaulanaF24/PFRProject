@@ -1,6 +1,7 @@
 package com.catatankeuangan;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -10,8 +11,12 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.KeyEvent;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
@@ -41,9 +46,8 @@ public class TransaksiList extends AppCompatActivity {
 
     RecyclerView RV;
     List<Transaksi> listTrans;
-    FloatingActionButton btnAdd;
     Spinner spnJenis;
-    Button btnPilih,btnReset;
+    Button btnPilih;
     TextView txtSaldo;
     Transaksi trans;
 
@@ -52,20 +56,13 @@ public class TransaksiList extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         setTitle("Catatan Keuangan");
+
+        initToolbar();
+
         RV = (RecyclerView)findViewById(R.id.rvTrans);
         txtSaldo = (TextView)findViewById(R.id.txtSaldo);
         spnJenis = (Spinner)findViewById(R.id.spnJenis1);
         btnPilih = (Button) findViewById(R.id.btnPilih);
-        btnReset = (Button) findViewById(R.id.btnReset);
-        btnAdd = (FloatingActionButton)findViewById(R.id.btnAdd);
-        btnAdd.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(TransaksiList.this,AddTransActivity.class);
-                startActivity(intent);
-            }
-        });
-
         btnPilih.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -73,17 +70,49 @@ public class TransaksiList extends AppCompatActivity {
             }
         });
 
-        btnReset.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                callPost();
-            }
-        });
-
         callPost();
-
     }
 
+    //====================TOOLBAR=======================================================
+
+    private void initToolbar() {
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setTitle("Catat Pengeluaran");
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_basic, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == android.R.id.home) {
+            close();
+        } else {
+           // Toast.makeText(getApplicationContext(), item.getTitle(), Toast.LENGTH_SHORT).show();
+
+            if (item.getTitle().toString().toLowerCase().equals("refresh")) {
+                callPost();
+            }  else if (item.getTitle().toString().toLowerCase().equals("search")) {
+                Intent intent = new Intent(TransaksiList.this,AddTransActivity.class);
+                startActivity(intent);
+                finish();
+            } else if (item.getTitle().toString().toLowerCase().equals("about us")) {
+                Intent intent = new Intent(TransaksiList.this,AbousUS.class);
+                startActivity(intent);
+            }
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    //=================END=OF=TOOLBAR=======================================================
+
+    //===================GET ALL DATA FROM WEB SERVICES======================================================
     APIInterfacesRest apiInterface;
     ProgressDialog progressDialog;
     public void callPost(){
@@ -130,7 +159,9 @@ public class TransaksiList extends AppCompatActivity {
         });
 
     }
+    //===================GET ALL DATA FROM WEB SERVICES======================================================
 
+    //===================GET SELECTED JENIS TRANSAKSI DATA FROM WEB SERVICES======================================================
     public void callSelectedTransaksi(){
 
         apiInterface = APIClient.getClient().create(APIInterfacesRest.class);
@@ -176,6 +207,9 @@ public class TransaksiList extends AppCompatActivity {
 
     }
 
+    //===================GET SELECTED JENIS TRANSAKSI DATA FROM WEB SERVICES=========================================
+
+    //===================SAVING DATA FROM WEB SERVICES TO SQLite=====================================================
     public void savedb( ){
 
         FlowManager.getDatabase(AppController.class)
@@ -205,8 +239,9 @@ public class TransaksiList extends AppCompatActivity {
 
     }
 
+    //===================SAVING DATA FROM WEB SERVICES TO SQLite=====================================================
 
-
+    //===================GET DATA FROM SQLite=====================================================
     public void sqlQueryList(){
 
         String rawQuery = "SELECT * FROM `Transaksi` ";
@@ -223,6 +258,9 @@ public class TransaksiList extends AppCompatActivity {
                 .execute();
     }
 
+    //===================GET DATA FROM SQLite=====================================================
+
+    //===================SET DATA TO ADAPTER=====================================================
     public void setupAdapterList(List<Transaksi> model){
         TransaksiAdapter toadapter = new TransaksiAdapter (TransaksiList.this,model);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
@@ -232,7 +270,9 @@ public class TransaksiList extends AppCompatActivity {
 
         toadapter.setMain(this);
     }
+    //===================SET DATA TO ADAPTER=====================================================
 
+    //===================DELETE SELECTED DATA on WEB Service=====================================
     public void deleteTrans(int id,String ket,String tgl,String jenis,int saldo) {
 
         apiInterface = APIClient.getClient().create(APIInterfacesRest.class);
@@ -269,4 +309,38 @@ public class TransaksiList extends AppCompatActivity {
             }
         });
     }
+    //===================DELETE SELECTED DATA on WEB Service=====================================
+
+    //===================CLOSE DIALOG=====================================
+    public void close(){
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setMessage("Udah Itung-itungnya ? Besok ngirit ya !")
+                .setCancelable(false)
+                .setPositiveButton("Udah",
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog,
+                                                int id) {
+                               TransaksiList.this.finish();
+                            }
+                        })
+                .setNegativeButton("Belum deng",new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog,
+                                        int id) {
+                        dialog.cancel();
+
+                    }
+                }).show();
+    }
+
+
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
+            close();
+
+        }
+        return super.onKeyDown(keyCode, event);
+    }
+    //===================CLOSE DIALOG=====================================
 }
+

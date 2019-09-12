@@ -12,8 +12,10 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".SplashScreen"
-                  android:theme="@style/SplashScreenCustom">
+        <activity android:name=".AbousUS"></activity>
+        <activity
+            android:name=".SplashScreen"
+            android:theme="@style/SplashScreenCustom">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -21,11 +23,11 @@
             </intent-filter>
         </activity>
         <activity android:name=".AddTransActivity" />
-        <activity android:name=".TransaksiList"></activity>
+        <activity android:name=".TransaksiList" />
     </application>
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-
     <uses-permission android:name="android.permission.INTERNET" />
+
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
     <dist:module dist:instant="true" />
 

@@ -46,6 +46,8 @@ public class AddTransActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 saveTrans();
+                Intent intent = new Intent(AddTransActivity.this,TransaksiList.class);
+                startActivity(intent);
                 finish();
             }
         });

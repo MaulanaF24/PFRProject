@@ -3,17 +3,23 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
 
-
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#643C0B"
     android:orientation="vertical">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <include layout="@layout/toolbar" />
+
+    </com.google.android.material.appbar.AppBarLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_margin="8dp"
-        android:background="#643C0B"
+
         android:orientation="vertical">
 
         <LinearLayout
@@ -22,7 +28,7 @@
             android:orientation="horizontal">
 
             <LinearLayout
-                android:layout_width="301dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
 
@@ -31,7 +37,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Pilih Jenis Pengeluaran"
-                    android:textColor="#DBDBDB" />
+                    android:textColor="#030303" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -40,7 +46,7 @@
 
                     <Spinner
                         android:id="@+id/spnJenis1"
-                        android:layout_width="167dp"
+                        android:layout_width="222dp"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:entries="@array/transaksi_arrays"
@@ -51,20 +57,13 @@
                     <Button
                         android:id="@+id/btnPilih"
                         style="@style/Button.Accent.Borderless.WhiteText"
-                        android:layout_width="66dp"
-                        android:layout_height="match_parent"
+                        android:layout_width="127dp"
+                        android:layout_height="wrap_content"
                         android:layout_gravity="right"
                         android:foregroundGravity="right"
                         android:gravity="center"
-                        android:text="Pilih" />
-
-                    <Button
-                        android:id="@+id/btnReset"
-                        style="@style/Button.Accent.Borderless.WhiteText"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text="Reset" />
+                        android:text="Pilih"
+                        android:textColor="#030303" />
 
                 </LinearLayout>
 
@@ -73,18 +72,10 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Total Pengeluaran"
-                    android:textColor="#DBDBDB" />
+                    android:textColor="#030303" />
 
             </LinearLayout>
 
-            <com.google.android.material.floatingactionbutton.FloatingActionButton
-                android:id="@+id/btnAdd"
-                android:layout_width="54dp"
-                android:layout_height="58dp"
-                android:layout_gravity="center|right"
-                android:layout_margin="16dp"
-                android:backgroundTint="#FF6D00"
-                android:src="@drawable/ic_create" />
         </LinearLayout>
 
         <LinearLayout
