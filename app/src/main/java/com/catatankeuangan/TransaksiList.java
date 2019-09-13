@@ -1,6 +1,7 @@
 package com.catatankeuangan;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -13,7 +14,9 @@ import retrofit2.Response;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -48,6 +51,7 @@ public class TransaksiList extends AppCompatActivity {
     Button btnPilih;
     TextView txtSaldo;
     Transaksi trans;
+    String stotal;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,18 +61,19 @@ public class TransaksiList extends AppCompatActivity {
 
         initToolbar();
 
-        RV = (RecyclerView)findViewById(R.id.rvTrans);
-        txtSaldo = (TextView)findViewById(R.id.txtSaldo);
-        spnJenis = (Spinner)findViewById(R.id.spnJenis1);
+        RV = (RecyclerView) findViewById(R.id.rvTrans);
+        txtSaldo = (TextView) findViewById(R.id.txtSaldo);
+        spnJenis = (Spinner) findViewById(R.id.spnJenis1);
         btnPilih = (Button) findViewById(R.id.btnPilih);
         btnPilih.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                    callSelectedTransaksi();
+                callSelectedTransaksi();
             }
         });
 
         callPost();
+
     }
 
     //====================TOOLBAR=======================================================
@@ -92,17 +97,21 @@ public class TransaksiList extends AppCompatActivity {
         if (item.getItemId() == android.R.id.home) {
             close();
         } else {
-           // Toast.makeText(getApplicationContext(), item.getTitle(), Toast.LENGTH_SHORT).show();
+            // Toast.makeText(getApplicationContext(), item.getTitle(), Toast.LENGTH_SHORT).show();
 
             if (item.getTitle().toString().toLowerCase().equals("refresh")) {
                 callPost();
-            }  else if (item.getTitle().toString().toLowerCase().equals("search")) {
-                Intent intent = new Intent(TransaksiList.this,AddTransActivity.class);
+            } else if (item.getTitle().toString().toLowerCase().equals("search")) {
+                Intent intent = new Intent(TransaksiList.this, AddTransActivity.class);
                 startActivity(intent);
                 finish();
             } else if (item.getTitle().toString().toLowerCase().equals("about us")) {
-                Intent intent = new Intent(TransaksiList.this,AbousUS.class);
+                Intent intent = new Intent(TransaksiList.this, AbousUS.class);
                 startActivity(intent);
+            } else if (item.getTitle().toString().toLowerCase().equals("set your limit")) {
+                Intent intent = new Intent(TransaksiList.this, SetYourLimit.class);
+                startActivity(intent);
+                finish();
             }
         }
         return super.onOptionsItemSelected(item);
@@ -113,7 +122,8 @@ public class TransaksiList extends AppCompatActivity {
     //===================GET ALL DATA FROM WEB SERVICES======================================================
     APIInterfacesRest apiInterface;
     ProgressDialog progressDialog;
-    public void callPost(){
+
+    public void callPost() {
 
         apiInterface = APIClient.getClient().create(APIInterfacesRest.class);
         progressDialog = new ProgressDialog(TransaksiList.this);
@@ -126,16 +136,17 @@ public class TransaksiList extends AppCompatActivity {
                 progressDialog.dismiss();
                 listTrans = response.body();
                 //Toast.makeText(LoginActivity.this,userList.getToken().toString(),Toast.LENGTH_LONG).show();
-                if (listTrans !=null) {
+                if (listTrans != null) {
                     setupAdapterList(listTrans);
 
                     int total = 0;
-                    for(int i=0;i<listTrans.size();i++){
+                    for (int i = 0; i < listTrans.size(); i++) {
                         total = total + listTrans.get(i).getSaldoKeluar();
                     }
-                    String stotal = String.valueOf(total);
+                    stotal = String.valueOf(total);
                     txtSaldo.setText("Total = Rp. " + stotal);
-                }else{
+                    limitwarning();
+                } else {
 
                     try {
                         JSONObject jObjError = new JSONObject(response.errorBody().string());
@@ -151,7 +162,7 @@ public class TransaksiList extends AppCompatActivity {
             public void onFailure(Call<List<Transaksi>> call, Throwable t) {
                 progressDialog.dismiss();
                 sqlQueryList();
-                Toast.makeText(getApplicationContext(),"Maaf koneksi bermasalah",Toast.LENGTH_LONG).show();
+                Toast.makeText(getApplicationContext(), "Maaf koneksi bermasalah", Toast.LENGTH_LONG).show();
                 call.cancel();
             }
         });
@@ -160,7 +171,7 @@ public class TransaksiList extends AppCompatActivity {
     //===================GET ALL DATA FROM WEB SERVICES======================================================
 
     //===================GET SELECTED JENIS TRANSAKSI DATA FROM WEB SERVICES======================================================
-    public void callSelectedTransaksi(){
+    public void callSelectedTransaksi() {
 
         apiInterface = APIClient.getClient().create(APIInterfacesRest.class);
         progressDialog = new ProgressDialog(TransaksiList.this);
@@ -173,16 +184,16 @@ public class TransaksiList extends AppCompatActivity {
                 progressDialog.dismiss();
                 listTrans = response.body();
                 //Toast.makeText(LoginActivity.this,userList.getToken().toString(),Toast.LENGTH_LONG).show();
-                if (listTrans !=null) {
+                if (listTrans != null) {
 
                     setupAdapterList(listTrans);
                     int total = 0;
-                    for(int i=0;i<listTrans.size();i++){
+                    for (int i = 0; i < listTrans.size(); i++) {
                         total = total + listTrans.get(i).getSaldoKeluar();
                     }
                     String stotal = String.valueOf(total);
                     txtSaldo.setText("Rp. " + stotal);
-                }else{
+                } else {
 
                     try {
                         JSONObject jObjError = new JSONObject(response.errorBody().string());
@@ -198,7 +209,7 @@ public class TransaksiList extends AppCompatActivity {
             public void onFailure(Call<List<Transaksi>> call, Throwable t) {
                 progressDialog.dismiss();
                 sqlQueryList();
-                Toast.makeText(getApplicationContext(),"Maaf koneksi bermasalah",Toast.LENGTH_LONG).show();
+                Toast.makeText(getApplicationContext(), "Maaf koneksi bermasalah", Toast.LENGTH_LONG).show();
                 call.cancel();
             }
         });
@@ -208,7 +219,7 @@ public class TransaksiList extends AppCompatActivity {
     //===================GET SELECTED JENIS TRANSAKSI DATA FROM WEB SERVICES=========================================
 
     //===================SAVING DATA FROM WEB SERVICES TO SQLite=====================================================
-    public void savedb( ){
+    public void savedb() {
 
         FlowManager.getDatabase(AppController.class)
                 .beginTransactionAsync(new ProcessModelTransaction.Builder<>(
@@ -223,13 +234,13 @@ public class TransaksiList extends AppCompatActivity {
                 .error(new Transaction.Error() {
                     @Override
                     public void onError(Transaction transaction, Throwable error) {
-                        Toast.makeText(getApplicationContext(),error.getMessage(),Toast.LENGTH_LONG).show();
+                        Toast.makeText(getApplicationContext(), error.getMessage(), Toast.LENGTH_LONG).show();
                     }
                 })
                 .success(new Transaction.Success() {
                     @Override
                     public void onSuccess(Transaction transaction) {
-                        Toast.makeText(getApplicationContext(),"Data Tersimpan",Toast.LENGTH_LONG).show();
+                        Toast.makeText(getApplicationContext(), "Data Tersimpan", Toast.LENGTH_LONG).show();
                         sqlQueryList();
                     }
                 }).build().execute();
@@ -240,7 +251,7 @@ public class TransaksiList extends AppCompatActivity {
     //===================SAVING DATA FROM WEB SERVICES TO SQLite=====================================================
 
     //===================GET DATA FROM SQLite=====================================================
-    public void sqlQueryList(){
+    public void sqlQueryList() {
 
         String rawQuery = "SELECT * FROM `Transaksi` ";
         StringQuery<Transaksi> stringQuery = new StringQuery<>(Transaksi.class, rawQuery);
@@ -259,8 +270,8 @@ public class TransaksiList extends AppCompatActivity {
     //===================GET DATA FROM SQLite=====================================================
 
     //===================SET DATA TO ADAPTER=====================================================
-    public void setupAdapterList(List<Transaksi> model){
-        TransaksiAdapter toadapter = new TransaksiAdapter (TransaksiList.this,model);
+    public void setupAdapterList(List<Transaksi> model) {
+        TransaksiAdapter toadapter = new TransaksiAdapter(TransaksiList.this, model);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
         RV.setLayoutManager(linearLayoutManager);
 
@@ -271,7 +282,7 @@ public class TransaksiList extends AppCompatActivity {
     //===================SET DATA TO ADAPTER=====================================================
 
     //===================DELETE SELECTED DATA on WEB Service=====================================
-    public void deleteTrans(int id,String ket,String tgl,String jenis,int saldo) {
+    public void deleteTrans(int id, String ket, String tgl, String jenis, int saldo) {
 
         apiInterface = APIClient.getClient().create(APIInterfacesRest.class);
 
@@ -310,7 +321,7 @@ public class TransaksiList extends AppCompatActivity {
     //===================DELETE SELECTED DATA on WEB Service=====================================
 
     //===================CLOSE DIALOG=====================================
-    public void close(){
+    public void close() {
 
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setMessage("Udah Itung-itungnya ? Besok ngirit ya !")
@@ -319,10 +330,10 @@ public class TransaksiList extends AppCompatActivity {
                         new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog,
                                                 int id) {
-                               TransaksiList.this.finish();
+                                TransaksiList.this.finish();
                             }
                         })
-                .setNegativeButton("Belum deng",new DialogInterface.OnClickListener() {
+                .setNegativeButton("Belum deng", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog,
                                         int id) {
                         dialog.cancel();
@@ -340,5 +351,27 @@ public class TransaksiList extends AppCompatActivity {
         return super.onKeyDown(keyCode, event);
     }
     //===================CLOSE DIALOG=====================================
+
+    public void limitwarning() {
+
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(TransaksiList.this);
+        int limit = prefs.getInt("limit",0);
+        int itotal = Integer.parseInt(stotal);
+
+        if(limit != 0) {
+            if (itotal >= limit) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(this);
+                builder.setMessage("Pengeluaran Anda sudah mendekati/melewati limit yang anda tentukan, Stop Khilaf Ya !")
+                        .setCancelable(false)
+                        .setNegativeButton("OKE", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog,
+                                                int id) {
+                                dialog.cancel();
+
+                            }
+                        }).show();
+            }
+        }
+    }
 }
 

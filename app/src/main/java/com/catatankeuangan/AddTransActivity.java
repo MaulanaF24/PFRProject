@@ -24,7 +24,7 @@ import java.util.List;
 
 public class AddTransActivity extends AppCompatActivity {
 
-    EditText txtKet, txtTgl, txtSaldo,txtId;
+    EditText txtKet, txtTgl, txtSaldo;
     Button btnSave;
     Spinner spnJenis;
     Transaksi trans;
@@ -38,7 +38,6 @@ public class AddTransActivity extends AppCompatActivity {
         txtKet = (EditText) findViewById(R.id.txtKet);
         txtTgl = (EditText) findViewById(R.id.txtTgl);
         txtSaldo = (EditText) findViewById(R.id.txtSaldo);
-        txtId = (EditText) findViewById(R.id.txtId);
         spnJenis = (Spinner) findViewById(R.id.spnJenis);
         btnSave = (Button) findViewById(R.id.btnSave);
 
@@ -63,7 +62,7 @@ public class AddTransActivity extends AppCompatActivity {
 //        progressDialog.setTitle("Loading");
 //        progressDialog.show();
         Transaksi transaksi = new Transaksi();
-        transaksi.setId(Integer.parseInt(txtId.getText().toString()));
+        transaksi.setId(100000);
         transaksi.setKetTransaksi(txtKet.getText().toString());
         transaksi.setTglTransaksi(txtTgl.getText().toString());
         transaksi.setJenisPengeluaran(spnJenis.getSelectedItem().toString());

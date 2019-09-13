@@ -9,18 +9,17 @@
     tools:context=".AddTransActivity">
 
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/text"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="ID Transaksi" />
+        android:text="Keterangan Transaksi" />
 
     <EditText
-        android:id="@+id/txtId"
+        android:id="@+id/txtKet"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
-        android:inputType="textPersonName"
-        android:text="Name" />
+        android:inputType="textPersonName" />
 
     <TextView
         android:id="@+id/textView2"
@@ -30,19 +29,6 @@
 
     <EditText
         android:id="@+id/txtTgl"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:inputType="textPersonName" />
-
-    <TextView
-        android:id="@+id/text"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Keterangan Transaksi" />
-
-    <EditText
-        android:id="@+id/txtKet"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
