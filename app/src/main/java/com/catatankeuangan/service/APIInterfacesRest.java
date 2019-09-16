@@ -7,7 +7,9 @@ package com.catatankeuangan.service;
 
 
 
+import com.catatankeuangan.model.LoginResponse;
 import com.catatankeuangan.model.Transaksi;
+import com.catatankeuangan.model.Users;
 
 import java.util.List;
 
@@ -37,11 +39,17 @@ import retrofit2.http.Query;
     @POST("transaksi/delete/")
     Call<Transaksi> deleteTransaksi(@Body Transaksi transaksi);
 
-    @GET("transaksi/search/{jenis}")
-    Call<List<Transaksi>> selectJenisTransaksi(@Path("jenis")String jenis);
+    @POST("login")
+    Call<LoginResponse> requestLogin(@Body Users users);
 
-    @GET("transaksi/all/")
-    Call<List<Transaksi>> getTransaksi();
+    @POST("users/add/")
+    Call<Users> saveUser(@Body Users users);
+
+    @GET("transaksi/search/{username}/{jenis}")
+    Call<List<Transaksi>> selectJenisTransaksi(@Path("username")String username,@Path("jenis")String jenis);
+
+    @GET("transaksi/all/{username}")
+    Call<List<Transaksi>> getTransaksi(@Path("username")String username);
 
    /* @FormUrlEncoded
     @POST("api/user/login")

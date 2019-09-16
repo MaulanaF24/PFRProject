@@ -32,6 +32,7 @@ import com.catatankeuangan.application.AppController;
 import com.catatankeuangan.model.Transaksi;
 import com.catatankeuangan.service.APIClient;
 import com.catatankeuangan.service.APIInterfacesRest;
+import com.catatankeuangan.utils.SharedPreferencesUtil;
 import com.raizlabs.android.dbflow.config.FlowManager;
 import com.raizlabs.android.dbflow.sql.queriable.StringQuery;
 import com.raizlabs.android.dbflow.structure.database.DatabaseWrapper;
@@ -52,6 +53,7 @@ public class TransaksiList extends AppCompatActivity {
     TextView txtSaldo;
     Transaksi trans;
     String stotal;
+    SharedPreferencesUtil session;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,6 +67,7 @@ public class TransaksiList extends AppCompatActivity {
         txtSaldo = (TextView) findViewById(R.id.txtSaldo);
         spnJenis = (Spinner) findViewById(R.id.spnJenis1);
         btnPilih = (Button) findViewById(R.id.btnPilih);
+        session = new SharedPreferencesUtil(TransaksiList.this);
         btnPilih.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -112,6 +115,11 @@ public class TransaksiList extends AppCompatActivity {
                 Intent intent = new Intent(TransaksiList.this, SetYourLimit.class);
                 startActivity(intent);
                 finish();
+            } else if (item.getTitle().toString().toLowerCase().equals("log out")) {
+                session.setUsername("");
+                Intent intent = new Intent(TransaksiList.this, LoginActivity.class);
+                startActivity(intent);
+                finish();
             }
         }
         return super.onOptionsItemSelected(item);
@@ -129,7 +137,7 @@ public class TransaksiList extends AppCompatActivity {
         progressDialog = new ProgressDialog(TransaksiList.this);
         progressDialog.setTitle("Loading");
         progressDialog.show();
-        Call<List<Transaksi>> mulaiRequest = apiInterface.getTransaksi();
+        Call<List<Transaksi>> mulaiRequest = apiInterface.getTransaksi(session.getUsername());
         mulaiRequest.enqueue(new Callback<List<Transaksi>>() {
             @Override
             public void onResponse(Call<List<Transaksi>> call, Response<List<Transaksi>> response) {
@@ -177,7 +185,7 @@ public class TransaksiList extends AppCompatActivity {
         progressDialog = new ProgressDialog(TransaksiList.this);
         progressDialog.setTitle("Loading");
         progressDialog.show();
-        Call<List<Transaksi>> mulaiRequest = apiInterface.selectJenisTransaksi(spnJenis.getSelectedItem().toString());
+        Call<List<Transaksi>> mulaiRequest = apiInterface.selectJenisTransaksi(session.getUsername(),spnJenis.getSelectedItem().toString());
         mulaiRequest.enqueue(new Callback<List<Transaksi>>() {
             @Override
             public void onResponse(Call<List<Transaksi>> call, Response<List<Transaksi>> response) {
@@ -226,7 +234,6 @@ public class TransaksiList extends AppCompatActivity {
                         new ProcessModelTransaction.ProcessModel<Transaksi>() {
                             @Override
                             public void processModel(Transaksi transaksi, DatabaseWrapper wrapper) {
-
                                 transaksi.save();
                             }
 

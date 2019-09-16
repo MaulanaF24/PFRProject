@@ -14,8 +14,7 @@ import com.raizlabs.android.dbflow.annotation.Table;
 import com.raizlabs.android.dbflow.structure.BaseModel;
 
 @Table(database = AppController.class)
-public class Transaksi extends BaseModel implements Serializable, Parcelable
-{
+public class Transaksi extends BaseModel implements Serializable, Parcelable {
 
     @SerializedName("id")
     @Expose
@@ -37,6 +36,10 @@ public class Transaksi extends BaseModel implements Serializable, Parcelable
     @Expose
     @Column
     private String jenisPengeluaran;
+    @SerializedName("username")
+    @Expose
+    @Column
+    private String username;
     public final static Parcelable.Creator<Transaksi> CREATOR = new Creator<Transaksi>() {
 
 
@@ -51,9 +54,8 @@ public class Transaksi extends BaseModel implements Serializable, Parcelable
             return (new Transaksi[size]);
         }
 
-    }
-            ;
-    private final static long serialVersionUID = -2609568848807734365L;
+    };
+    private final static long serialVersionUID = -3563276436157447038L;
 
     protected Transaksi(Parcel in) {
         this.id = ((Integer) in.readValue((Integer.class.getClassLoader())));
@@ -61,6 +63,7 @@ public class Transaksi extends BaseModel implements Serializable, Parcelable
         this.saldoKeluar = ((Integer) in.readValue((Integer.class.getClassLoader())));
         this.tglTransaksi = ((String) in.readValue((String.class.getClassLoader())));
         this.jenisPengeluaran = ((String) in.readValue((String.class.getClassLoader())));
+        this.username = ((String) in.readValue((String.class.getClassLoader())));
     }
 
     public Transaksi() {
@@ -106,12 +109,21 @@ public class Transaksi extends BaseModel implements Serializable, Parcelable
         this.jenisPengeluaran = jenisPengeluaran;
     }
 
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeValue(id);
         dest.writeValue(ketTransaksi);
         dest.writeValue(saldoKeluar);
         dest.writeValue(tglTransaksi);
         dest.writeValue(jenisPengeluaran);
+        dest.writeValue(username);
     }
 
     public int describeContents() {

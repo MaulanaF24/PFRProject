@@ -26,4 +26,10 @@
         android:orderInCategory="100"
         android:title="About Us"
         app:showAsAction="never" />
+
+    <item
+        android:id="@+id/action_logou"
+        android:orderInCategory="100"
+        android:title="Log Out"
+        app:showAsAction="never" />
 </menu>

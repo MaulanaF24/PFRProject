@@ -23,6 +23,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".SignUpActivity" />
+        <activity android:name=".LoginActivity" />
         <activity android:name=".AddTransActivity" />
         <activity android:name=".TransaksiList" />
     </application>

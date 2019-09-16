@@ -17,6 +17,7 @@ import android.widget.Toast;
 import com.catatankeuangan.model.Transaksi;
 import com.catatankeuangan.service.APIClient;
 import com.catatankeuangan.service.APIInterfacesRest;
+import com.catatankeuangan.utils.SharedPreferencesUtil;
 
 import org.json.JSONObject;
 
@@ -28,6 +29,7 @@ public class AddTransActivity extends AppCompatActivity {
     Button btnSave;
     Spinner spnJenis;
     Transaksi trans;
+    SharedPreferencesUtil session;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,6 +42,8 @@ public class AddTransActivity extends AppCompatActivity {
         txtSaldo = (EditText) findViewById(R.id.txtSaldo);
         spnJenis = (Spinner) findViewById(R.id.spnJenis);
         btnSave = (Button) findViewById(R.id.btnSave);
+
+        session = new SharedPreferencesUtil(AddTransActivity.this);
 
         btnSave.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -67,6 +71,7 @@ public class AddTransActivity extends AppCompatActivity {
         transaksi.setTglTransaksi(txtTgl.getText().toString());
         transaksi.setJenisPengeluaran(spnJenis.getSelectedItem().toString());
         transaksi.setSaldoKeluar(Integer.parseInt(txtSaldo.getText().toString()));
+        transaksi.setUsername(session.getUsername());
 
         Call<Transaksi> mulaiRequest = apiInterface.saveTransaksi(transaksi);
 
@@ -74,7 +79,7 @@ public class AddTransActivity extends AppCompatActivity {
         mulaiRequest.enqueue(new Callback<Transaksi>() {
             @Override
             public void onResponse(Call<Transaksi> call, Response<Transaksi> response) {
-//                progressDialog.dismiss();
+//              progressDialog.dismiss();
                 trans = response.body();
                 //Toast.makeText(LoginActivity.this,userList.getToken().toString(),Toast.LENGTH_LONG).show();
                 if (trans != null) {
@@ -88,7 +93,6 @@ public class AddTransActivity extends AppCompatActivity {
                         Toast.makeText(AddTransActivity.this, e.getMessage(), Toast.LENGTH_LONG).show();
                     }
                 }
-
             }
 
             @Override

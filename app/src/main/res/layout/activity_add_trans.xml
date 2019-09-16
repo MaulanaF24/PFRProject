@@ -8,44 +8,38 @@
     android:orientation="vertical"
     tools:context=".AddTransActivity">
 
-    <TextView
-        android:id="@+id/text"
+    <com.google.android.material.textfield.TextInputLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Keterangan Transaksi" />
+        android:layout_height="wrap_content">
 
-    <EditText
-        android:id="@+id/txtKet"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:inputType="textPersonName" />
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/txtKet"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Keterangan Transaksi" />
+    </com.google.android.material.textfield.TextInputLayout>
 
-    <TextView
-        android:id="@+id/textView2"
+    <com.google.android.material.textfield.TextInputLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Tanggal Transaksi" />
+        android:layout_height="wrap_content">
 
-    <EditText
-        android:id="@+id/txtTgl"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:inputType="textPersonName" />
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/txtTgl"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Tanggal Transaksi" />
+    </com.google.android.material.textfield.TextInputLayout>
 
-    <TextView
-        android:id="@+id/text11"
+    <com.google.android.material.textfield.TextInputLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Biaya" />
+        android:layout_height="wrap_content">
 
-    <EditText
-        android:id="@+id/txtSaldo"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:inputType="textPersonName" />
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/txtSaldo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Biaya" />
+    </com.google.android.material.textfield.TextInputLayout>
 
     <TextView
         android:id="@+id/textView5"
