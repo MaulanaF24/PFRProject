@@ -26,7 +26,6 @@ import retrofit2.Response;
 public class SignUpActivity extends AppCompatActivity {
     EditText txtPassword,txtUsername,txtEmail,txtNamauser,txtAlamat,txtHp;
     RadioButton rdBtnPria,rdBtnWanita;
-    TextView login;
     Button btnSign;
     Users user;
 
@@ -59,14 +58,11 @@ public class SignUpActivity extends AppCompatActivity {
     }
 
     APIInterfacesRest apiInterface;
-    ProgressDialog progressDialog;
 
     public void saveTrans() {
 
         apiInterface = APIClient.getClient().create(APIInterfacesRest.class);
-//        progressDialog = new ProgressDialog(getApplicationContext());
-//        progressDialog.setTitle("Loading");
-//        progressDialog.show();
+
         Users users = new Users();
        users.setEmail(txtEmail.getText().toString());
        users.setNamaUser(txtNamauser.getText().toString());
@@ -75,19 +71,17 @@ public class SignUpActivity extends AppCompatActivity {
        users.setPassword(txtPassword.getText().toString());
        users.setUsername(txtUsername.getText().toString());
 
-       if (rdBtnPria.isSelected()){
+       if (rdBtnPria.isChecked()){
            users.setJenisKelamin("Male");
-       } else {
+       } else if (rdBtnWanita.isChecked()){
            users.setJenisKelamin("Female");
        }
 
-        Call<Users> mulaiRequest = apiInterface.saveUser(user);
-
-
+        Call<Users> mulaiRequest = apiInterface.saveUser(users);
         mulaiRequest.enqueue(new Callback<Users>() {
             @Override
             public void onResponse(Call<Users> call, Response<Users> response) {
-//              progressDialog.dismiss();
+
                 user = response.body();
                 //Toast.makeText(LoginActivity.this,userList.getToken().toString(),Toast.LENGTH_LONG).show();
                 if (user != null) {
@@ -105,7 +99,7 @@ public class SignUpActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<Users> call, Throwable t) {
-                // progressDialog.dismiss();
+
 
                 Toast.makeText(getApplicationContext(), "Maaf koneksi bermasalah", Toast.LENGTH_LONG).show();
                 call.cancel();

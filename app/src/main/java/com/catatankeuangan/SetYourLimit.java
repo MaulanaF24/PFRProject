@@ -17,6 +17,8 @@ public class SetYourLimit extends AppCompatActivity {
 
     EditText editLimit;
     Button btnSet;
+    SharedPreferences prefs;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -25,14 +27,15 @@ public class SetYourLimit extends AppCompatActivity {
         editLimit = findViewById(R.id.editLimit);
         btnSet = findViewById(R.id.btnSet);
 
+
         btnSet.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(SetYourLimit.this);
+                prefs = PreferenceManager.getDefaultSharedPreferences(SetYourLimit.this);
                 prefs.edit().putInt("limit",Integer.parseInt(editLimit.getText().toString())).commit();
 
-                editLimit.setText("limit");
+
                 Intent intent = new Intent(SetYourLimit.this,TransaksiList.class);
                 startActivity(intent);
                 finish();

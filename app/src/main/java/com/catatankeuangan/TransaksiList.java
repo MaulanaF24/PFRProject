@@ -75,7 +75,7 @@ public class TransaksiList extends AppCompatActivity {
             }
         });
 
-        callPost();
+        callTransaksi();
 
     }
 
@@ -103,10 +103,10 @@ public class TransaksiList extends AppCompatActivity {
             // Toast.makeText(getApplicationContext(), item.getTitle(), Toast.LENGTH_SHORT).show();
 
             if (item.getTitle().toString().toLowerCase().equals("refresh")) {
-                callPost();
+                callTransaksi();
             } else if (item.getTitle().toString().toLowerCase().equals("search")) {
                 Intent intent = new Intent(TransaksiList.this, AddTransActivity.class);
-                startActivity(intent);
+                startActivityForResult(intent,4);
                 finish();
             } else if (item.getTitle().toString().toLowerCase().equals("about us")) {
                 Intent intent = new Intent(TransaksiList.this, AbousUS.class);
@@ -131,7 +131,7 @@ public class TransaksiList extends AppCompatActivity {
     APIInterfacesRest apiInterface;
     ProgressDialog progressDialog;
 
-    public void callPost() {
+    public void callTransaksi() {
 
         apiInterface = APIClient.getClient().create(APIInterfacesRest.class);
         progressDialog = new ProgressDialog(TransaksiList.this);
@@ -378,6 +378,14 @@ public class TransaksiList extends AppCompatActivity {
                             }
                         }).show();
             }
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(requestCode== 4 && resultCode == 5){
+            callTransaksi();
         }
     }
 }

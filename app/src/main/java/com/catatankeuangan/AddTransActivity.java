@@ -50,7 +50,7 @@ public class AddTransActivity extends AppCompatActivity {
             public void onClick(View v) {
                 saveTrans();
                 Intent intent = new Intent(AddTransActivity.this,TransaksiList.class);
-                startActivity(intent);
+                setResult(5,intent);
                 finish();
             }
         });
