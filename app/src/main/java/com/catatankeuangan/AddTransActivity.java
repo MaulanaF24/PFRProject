@@ -1,15 +1,19 @@
 package com.catatankeuangan;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+import android.app.DatePickerDialog;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
@@ -21,7 +25,10 @@ import com.catatankeuangan.utils.SharedPreferencesUtil;
 
 import org.json.JSONObject;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.List;
+import java.util.Locale;
 
 public class AddTransActivity extends AppCompatActivity {
 
@@ -30,6 +37,8 @@ public class AddTransActivity extends AppCompatActivity {
     Spinner spnJenis;
     Transaksi trans;
     SharedPreferencesUtil session;
+    private DatePickerDialog datePickerDialog;
+    private SimpleDateFormat dateFormatter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,13 +46,24 @@ public class AddTransActivity extends AppCompatActivity {
         setContentView(R.layout.activity_add_trans);
         setTitle("Catat Transaksi Baru");
 
+        initToolbar();
+
         txtKet = (EditText) findViewById(R.id.txtKet);
         txtTgl = (EditText) findViewById(R.id.txtTgl);
         txtSaldo = (EditText) findViewById(R.id.txtSaldo);
         spnJenis = (Spinner) findViewById(R.id.spnJenis);
         btnSave = (Button) findViewById(R.id.btnSave);
 
+
+        dateFormatter = new SimpleDateFormat("dd-MM-yyyy", Locale.US);
         session = new SharedPreferencesUtil(AddTransActivity.this);
+
+        txtTgl.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showDateDialog();
+            }
+        });
 
         btnSave.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -54,6 +74,25 @@ public class AddTransActivity extends AppCompatActivity {
                 finish();
             }
         });
+    }
+
+    private void initToolbar() {
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setTitle("Pengeluaran Baru");
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == android.R.id.home) {
+            Intent intent = new Intent (AddTransActivity.this,TransaksiList.class);
+            startActivity(intent);
+            finish();
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 
     APIInterfacesRest apiInterface;
@@ -105,5 +144,44 @@ public class AddTransActivity extends AppCompatActivity {
         });
     }
 
+    private void showDateDialog(){
 
+        /**
+         * Calendar untuk mendapatkan tanggal sekarang
+         */
+        Calendar newCalendar = Calendar.getInstance();
+
+        /**
+         * Initiate DatePicker dialog
+         */
+        datePickerDialog = new DatePickerDialog(this, new DatePickerDialog.OnDateSetListener() {
+
+            @Override
+            public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+
+                /**
+                 * Method ini dipanggil saat kita selesai memilih tanggal di DatePicker
+                 */
+
+                /**
+                 * Set Calendar untuk menampung tanggal yang dipilih
+                 */
+                Calendar newDate = Calendar.getInstance();
+                newDate.set(year, monthOfYear, dayOfMonth);
+
+                /**
+                 * Update TextView dengan tanggal yang kita pilih
+                 */
+                txtTgl.setText(dateFormatter.format(newDate.getTime()));
+            }
+
+        },newCalendar.get(Calendar.YEAR), newCalendar.get(Calendar.MONTH), newCalendar.get(Calendar.DAY_OF_MONTH));
+
+        /**
+         * Tampilkan DatePicker dialog
+         */
+        datePickerDialog.show();
+    }
 }
+
+

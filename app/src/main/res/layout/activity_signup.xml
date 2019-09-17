@@ -14,18 +14,10 @@
             android:layout_height="wrap_content"
             android:orientation="vertical" >
 
-            <ImageView
-                android:layout_width="150dp"
-                android:layout_height="150dp"
-                android:layout_gravity="center"
-                android:layout_marginTop="30dp"
-                android:src="@drawable/logo_catatan_keuangan"
-                tools:srcCompat="@drawable/logo_catatan_keuangan" />
-
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginTop="40dp"
+                android:layout_marginTop="5dp"
                 android:gravity="center"
                 android:orientation="horizontal"
                 android:paddingLeft="60dp"
@@ -42,18 +34,20 @@
                         android:orientation="horizontal"
                         android:padding="16dp">
 
-                        <EditText
-                            android:id="@+id/txtEmail"
+                        <com.google.android.material.textfield.TextInputLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginLeft="15dp"
-                            android:background="#00000000"
-                            android:hint="Email Address"
-                            android:inputType="text"
-                            android:letterSpacing="0.1"
-                            android:textColor="#fff"
-                            android:textColorHint="#fff"
-                            android:textSize="16dp" />
+                            android:layout_weight="1"
+                            android:textColorHint="@color/amber_50">
+
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/txtEmail"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:hint="Email Address"
+                                android:textColor="@color/amber_500"
+                                android:textSize="15dp" />
+                        </com.google.android.material.textfield.TextInputLayout>
 
                         <ImageView
                             android:layout_width="20dp"
@@ -68,18 +62,21 @@
                         android:orientation="horizontal"
                         android:padding="16dp">
 
-                        <EditText
-                            android:id="@+id/txtNamauser"
+                        <com.google.android.material.textfield.TextInputLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginLeft="15dp"
-                            android:background="#00000000"
-                            android:hint="Name"
-                            android:inputType="text"
-                            android:letterSpacing="0.1"
-                            android:textColor="#fff"
-                            android:textColorHint="#fff"
-                            android:textSize="16dp" />
+                            android:layout_weight="1"
+                            android:textColorHint="@color/amber_50">
+
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/txtNamauser"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:hint="Name"
+                                android:textColor="@color/amber_500"
+                                android:textSize="15dp" />
+                        </com.google.android.material.textfield.TextInputLayout>
+
 
                         <ImageView
                             android:layout_width="20dp"
@@ -94,18 +91,21 @@
                         android:orientation="horizontal"
                         android:padding="16dp">
 
-                        <EditText
-                            android:id="@+id/txtUsername"
+                        <com.google.android.material.textfield.TextInputLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginLeft="15dp"
-                            android:background="#00000000"
-                            android:hint="Username"
-                            android:inputType="text"
-                            android:letterSpacing="0.1"
-                            android:textColor="#fff"
-                            android:textColorHint="#fff"
-                            android:textSize="16dp" />
+                            android:layout_weight="1"
+                            android:textColorHint="@color/amber_50">
+
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/txtUsername"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:hint="Username"
+                                android:textColor="@color/amber_500"
+                                android:textSize="15dp" />
+                        </com.google.android.material.textfield.TextInputLayout>
+
 
                         <ImageView
                             android:layout_width="20dp"
@@ -120,18 +120,20 @@
                         android:orientation="horizontal"
                         android:padding="16dp">
 
-                        <EditText
-                            android:id="@+id/txtAlamat"
-                            android:layout_width="230dp"
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginLeft="20dp"
-                            android:background="#00000000"
-                            android:hint="Address"
-                            android:inputType="text"
-                            android:letterSpacing="0.1"
-                            android:textColor="#fff"
-                            android:textColorHint="#fff"
-                            android:textSize="16dp" />
+                            android:layout_weight="1"
+                            android:textColorHint="@color/amber_50">
+
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/txtAlamat"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:hint="Address"
+                                android:textColor="@color/amber_500"
+                                android:textSize="15dp" />
+                        </com.google.android.material.textfield.TextInputLayout>
 
 
                     </LinearLayout>
@@ -142,18 +144,21 @@
                         android:orientation="horizontal"
                         android:padding="16dp">
 
-                        <EditText
-                            android:id="@+id/txtPassword"
+                        <com.google.android.material.textfield.TextInputLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginLeft="15dp"
-                            android:background="#00000000"
-                            android:hint="Password"
-                            android:inputType="textPassword"
-                            android:letterSpacing="0.1"
-                            android:textColor="#fff"
-                            android:textColorHint="#fff"
-                            android:textSize="16dp" />
+                            android:layout_weight="1"
+                            android:textColorHint="@color/amber_50">
+
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/txtPassword"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:hint="Password"
+                                android:textColor="@color/amber_500"
+                                android:textSize="15dp" />
+                        </com.google.android.material.textfield.TextInputLayout>
+
 
                         <ImageView
                             android:layout_width="20dp"
@@ -168,18 +173,23 @@
                         android:orientation="horizontal"
                         android:padding="16dp">
 
-                        <EditText
-                            android:id="@+id/txtHp"
+                        <com.google.android.material.textfield.TextInputLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginLeft="15dp"
-                            android:background="#00000000"
-                            android:hint="Mobile Number"
-                            android:inputType="number"
-                            android:letterSpacing="0.1"
-                            android:textColor="#fff"
-                            android:textColorHint="#fff"
-                            android:textSize="16dp" />
+                            android:layout_weight="1"
+                            android:textColorHint="@color/amber_50">
+
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/txtHp"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:hint="Mobile Number"
+                                android:textColor="@color/amber_500"
+                                android:textSize="15dp" />
+                        </com.google.android.material.textfield.TextInputLayout>
+
+
+
 
                         <ImageView
                             android:layout_width="20dp"
@@ -200,6 +210,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="15dp"
                             android:layout_weight="1"
+                            android:scrollbarThumbHorizontal="@color/amber_50"
                             android:text="Gender"
                             android:textColor="@color/amber_50" />
                     </LinearLayout>
@@ -240,6 +251,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
                 android:orientation="horizontal">
 
                 <Button
@@ -247,8 +259,8 @@
                     android:layout_width="118dp"
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="120dp"
-                    android:layout_marginTop="30dp"
-                    android:layout_marginBottom="30dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginBottom="20dp"
                     android:layout_weight="1"
                     android:background="@android:color/holo_orange_light"
                     android:text="Sign Up" />

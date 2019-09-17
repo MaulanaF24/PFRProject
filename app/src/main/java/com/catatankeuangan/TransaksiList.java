@@ -107,7 +107,6 @@ public class TransaksiList extends AppCompatActivity {
             } else if (item.getTitle().toString().toLowerCase().equals("search")) {
                 Intent intent = new Intent(TransaksiList.this, AddTransActivity.class);
                 startActivityForResult(intent,4);
-                finish();
             } else if (item.getTitle().toString().toLowerCase().equals("about us")) {
                 Intent intent = new Intent(TransaksiList.this, AbousUS.class);
                 startActivity(intent);

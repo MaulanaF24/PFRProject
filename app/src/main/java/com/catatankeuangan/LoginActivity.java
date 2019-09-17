@@ -1,6 +1,7 @@
 package com.catatankeuangan;
 
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -16,6 +17,7 @@ import com.catatankeuangan.utils.SharedPreferencesUtil;
 
 import org.json.JSONObject;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -112,5 +114,31 @@ public class LoginActivity extends AppCompatActivity {
         else {
             Toast.makeText(LoginActivity.this, loginResponse.getMessage(), Toast.LENGTH_LONG).show();
         }
+    }
+
+    @Override
+    public void onBackPressed() {
+       close();
+    }
+
+    public void close() {
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setMessage("Yakin ga catet pengeluaran hari ini ? Besok Lupa lho !")
+                .setCancelable(false)
+                .setPositiveButton("Yakin",
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog,
+                                                int id) {
+                                LoginActivity.this.finish();
+                            }
+                        })
+                .setNegativeButton("Catet Deh", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog,
+                                        int id) {
+                        dialog.cancel();
+
+                    }
+                }).show();
     }
 }

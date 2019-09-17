@@ -34,12 +34,12 @@ public class SignUpActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_signup);
 
-        txtUsername = (EditText) findViewById(R.id.txtUsername);
-        txtPassword = (EditText)findViewById(R.id.txtPassword);
-        txtEmail = (EditText) findViewById(R.id.txtEmail);
-        txtHp = (EditText) findViewById(R.id.txtHp);
-        txtNamauser = (EditText) findViewById(R.id.txtNamauser);
-        txtAlamat = (EditText) findViewById(R.id.txtAlamat);
+        txtUsername = findViewById(R.id.txtUsername);
+        txtPassword = findViewById(R.id.txtPassword);
+        txtEmail = findViewById(R.id.txtEmail);
+        txtHp = findViewById(R.id.txtHp);
+        txtNamauser = findViewById(R.id.txtNamauser);
+        txtAlamat = findViewById(R.id.txtAlamat);
         rdBtnPria = findViewById(R.id.rdBtnPria);
         rdBtnWanita = findViewById(R.id.rdBtnWanita);
 
@@ -105,5 +105,12 @@ public class SignUpActivity extends AppCompatActivity {
                 call.cancel();
             }
         });
+    }
+
+    @Override
+    public void onBackPressed() {
+        Intent intent = new Intent(SignUpActivity.this,LoginActivity.class);
+        startActivity(intent);
+        finish();
     }
 }
