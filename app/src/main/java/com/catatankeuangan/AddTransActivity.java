@@ -25,6 +25,7 @@ import com.catatankeuangan.utils.SharedPreferencesUtil;
 
 import org.json.JSONObject;
 
+import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.List;
@@ -39,6 +40,7 @@ public class AddTransActivity extends AppCompatActivity {
     SharedPreferencesUtil session;
     private DatePickerDialog datePickerDialog;
     private SimpleDateFormat dateFormatter;
+    private DecimalFormat formatter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,9 +56,11 @@ public class AddTransActivity extends AppCompatActivity {
         spnJenis = (Spinner) findViewById(R.id.spnJenis);
         btnSave = (Button) findViewById(R.id.btnSave);
 
-
+        formatter = new DecimalFormat("###,###,###");
         dateFormatter = new SimpleDateFormat("dd-MM-yyyy", Locale.US);
         session = new SharedPreferencesUtil(AddTransActivity.this);
+
+
 
         txtTgl.setOnClickListener(new View.OnClickListener() {
             @Override

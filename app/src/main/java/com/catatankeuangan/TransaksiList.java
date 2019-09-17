@@ -42,6 +42,7 @@ import com.raizlabs.android.dbflow.structure.database.transaction.Transaction;
 
 import org.json.JSONObject;
 
+import java.text.DecimalFormat;
 import java.util.List;
 
 public class TransaksiList extends AppCompatActivity {
@@ -54,6 +55,7 @@ public class TransaksiList extends AppCompatActivity {
     Transaksi trans;
     String stotal;
     SharedPreferencesUtil session;
+    private DecimalFormat formatter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,6 +64,8 @@ public class TransaksiList extends AppCompatActivity {
         setTitle("Catatan Keuangan");
 
         initToolbar();
+
+        formatter = new DecimalFormat("###,###,###");
 
         RV = (RecyclerView) findViewById(R.id.rvTrans);
         txtSaldo = (TextView) findViewById(R.id.txtSaldo);
@@ -151,7 +155,7 @@ public class TransaksiList extends AppCompatActivity {
                         total = total + listTrans.get(i).getSaldoKeluar();
                     }
                     stotal = String.valueOf(total);
-                    txtSaldo.setText("Total = Rp. " + stotal);
+                    txtSaldo.setText("Total = Rp. " + formatter.format(Double.valueOf(stotal)));
                     limitwarning();
                 } else {
 
@@ -199,7 +203,7 @@ public class TransaksiList extends AppCompatActivity {
                         total = total + listTrans.get(i).getSaldoKeluar();
                     }
                     String stotal = String.valueOf(total);
-                    txtSaldo.setText("Rp. " + stotal);
+                    txtSaldo.setText("Total = Rp. " + formatter.format(Double.valueOf(stotal)));
                 } else {
 
                     try {

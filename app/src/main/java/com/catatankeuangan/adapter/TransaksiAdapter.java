@@ -9,6 +9,8 @@ import com.catatankeuangan.R;
 import com.catatankeuangan.TransaksiList;
 import com.catatankeuangan.model.Transaksi;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+
+import java.text.DecimalFormat;
 import java.util.List;
 
 import androidx.annotation.NonNull;
@@ -21,6 +23,7 @@ public class TransaksiAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
     List<Transaksi> listTrans;
     TransaksiList transaksiList;
     ViewHolderTransaksi view;
+    private DecimalFormat formatter;
 
     public TransaksiAdapter(Context context , List<Transaksi> listTrans ) {
 
@@ -50,11 +53,12 @@ public class TransaksiAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
             view = (ViewHolderTransaksi) holder;
             final Transaksi trans = listTrans.get(position);
 
+            formatter = new DecimalFormat("###,###,###");
 
             view.txtTgl.setText("ID "+ trans.getId()+" / Tgl "+trans.getTglTransaksi());
             view.txtKet.setText("Keterangan: " + trans.getKetTransaksi());
             view.txtJenis.setText("Jenis Transaksi: " + trans.getJenisPengeluaran());
-            view.txtSaldo.setText("Biaya: Rp. " + trans.getSaldoKeluar());
+            view.txtSaldo.setText("Biaya: Rp. " + formatter.format(Double.valueOf(trans.getSaldoKeluar())));
 
             view.btnDelete.setOnClickListener(new View.OnClickListener() {
                 @Override
