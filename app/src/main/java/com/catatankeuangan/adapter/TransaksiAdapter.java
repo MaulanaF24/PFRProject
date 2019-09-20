@@ -60,18 +60,9 @@ public class TransaksiAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
             view.txtJenis.setText("Jenis Transaksi: " + trans.getJenisPengeluaran());
             view.txtSaldo.setText("Biaya: Rp. " + formatter.format(Double.valueOf(trans.getSaldoKeluar())));
 
-            view.btnDelete.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    transaksiList.deleteTrans(trans.getId(),
-                            trans.getKetTransaksi(),
-                            trans.getTglTransaksi(),
-                            trans.getJenisPengeluaran(),
-                            trans.getSaldoKeluar());
 
-                            view.itemView.setVisibility(View.GONE);
-                }
-            });
+
+
         }
 
 
@@ -89,9 +80,11 @@ public class TransaksiAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
             txtKet = (TextView)itemView.findViewById(R.id.txtKet);
             txtSaldo = (TextView)itemView.findViewById(R.id.txtSaldo);
             txtJenis = (TextView)itemView.findViewById(R.id.txtJenis);
-            btnDelete = (FloatingActionButton)itemView.findViewById(R.id.btnDelete);
+
 
         }
+
+
     }
 
     @Override

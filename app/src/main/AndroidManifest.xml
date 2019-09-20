@@ -12,25 +12,28 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".SetYourLimit"></activity>
-        <activity android:name=".AbousUS" />
-        <activity
-            android:name=".SplashScreen"
-            android:theme="@style/SplashScreenCustom">
+        <activity android:name=".CountryActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".SetYourLimit" />
+        <activity android:name=".AbousUS" />
+        <activity
+            android:name=".SplashScreen"
+            android:theme="@style/SplashScreenCustom">
+
+        </activity>
         <activity android:name=".SignUpActivity" />
         <activity android:name=".LoginActivity" />
         <activity android:name=".AddTransActivity" />
         <activity android:name=".TransaksiList" />
     </application>
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-
     <uses-permission android:name="android.permission.INTERNET" />
+
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
     <dist:module dist:instant="true" />
 

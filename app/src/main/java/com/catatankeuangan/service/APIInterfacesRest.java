@@ -10,6 +10,7 @@ package com.catatankeuangan.service;
 import com.catatankeuangan.model.LoginResponse;
 import com.catatankeuangan.model.Transaksi;
 import com.catatankeuangan.model.Users;
+import com.catatankeuangan.test_247.model.CountryModel;
 
 import java.util.List;
 
@@ -32,6 +33,10 @@ import retrofit2.http.Query;
  */
 
  public interface APIInterfacesRest {
+
+
+    @GET("rest/v2/regionalbloc/asean")
+    Call<List<CountryModel>> getAllData();
 
     @POST("transaksi/add/")
     Call<Transaksi> saveTransaksi(@Body Transaksi transaksi);
